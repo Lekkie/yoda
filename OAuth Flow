@@ -1,0 +1,75 @@
+http://localhost:8080/oauth/token
+grant_type: client_credentials
+
+http://localhost:8080/oauth/token
+grant_type paassword
+username: Alex123
+password: password
+
+
+http://localhost:8080/oauth/token
+grant_type refresh_token
+refresh_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJBbGV4MTIzIiwic2NvcGUiOlsicmVhZCIsIiB3cml0ZSIsIiB0cnVzdCJdLCJhdGkiOiI3MjhmOTBkZC1lMTBhLTQzNTQtYjc3NS1kZGU2Nzc2NGFmYjgiLCJleHAiOjE1MjAzNzUyMjEsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwianRpIjoiNTUxNjU1ZWUtZmQ4Zi00OWVjLWIwMzYtYTM0MTdjNzhhOTU3IiwiZW1haWwiOiJBbGV4MTIzIiwiY2xpZW50X2lkIjoiZGV2Z2xhbi1jbGllbnQifQ.l93xBApf6e1AMFBLUlTlVEqWIGjnriWSJHKtegnl5L0
+
+
+
+GET http://localhost:8080/oauth/authorize?client_id=devglan-client&response_type=code&redirect_uri=https://client.example.com/cb
+
+<html>
+    <body>
+        <h1>OAuth Approval</h1>
+        <p>Do you authorize 'devglan-client' to access your protected resources?</p>
+        <form id='confirmationForm' name='confirmationForm' action='/oauth/authorize' method='post'>
+            <input name='user_oauth_approval' value='true' type='hidden'/>
+            <label>
+                <input name='authorize' value='Authorize' type='submit'/>
+            </label>
+        </form>
+        <form id='denialForm' name='denialForm' action='/oauth/authorize' method='post'>
+            <input name='user_oauth_approval' value='false' type='hidden'/>
+            <label>
+                <input name='deny' value='Deny' type='submit'/>
+            </label>
+        </form>
+    </body>
+</html>
+
+http://localhost:8080/oauth/authorize?client_id=devglan-client&user_oauth_approval=true
+
+redirects to
+http://web-app/login?code=secret_code
+
+POST
+http://localhost:8080/oauth/token?client_id=devglan-client&grant_type=authorization_code&code=jZ1OWU&redirect_uri=https://client.example.com/cb
+Basic Auth
+
+
+
+
+GET http://localhost:8080/oauth/authorize?client_id=devglan-client&response_type=token&redirect_uri=https://client.example.com/cb
+
+<html>
+    <body>
+        <h1>OAuth Approval</h1>
+        <p>Do you authorize 'devglan-client' to access your protected resources?</p>
+        <form id='confirmationForm' name='confirmationForm' action='/oauth/authorize' method='post'>
+            <input name='user_oauth_approval' value='true' type='hidden'/>
+            <label>
+                <input name='authorize' value='Authorize' type='submit'/>
+            </label>
+        </form>
+        <form id='denialForm' name='denialForm' action='/oauth/authorize' method='post'>
+            <input name='user_oauth_approval' value='false' type='hidden'/>
+            <label>
+                <input name='deny' value='Deny' type='submit'/>
+            </label>
+        </form>
+    </body>
+</html>
+
+http://localhost:8080/oauth/authorize?client_id=devglan-client&grant_type=password&response_type=token
+
+redirects to
+http://web-app/login?access_token=token
+
+
